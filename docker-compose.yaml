@@ -1,0 +1,10 @@
+version: '3.1'
+services:
+  SysCtrlApp:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5440:5432"
+    container_name: SysCtrlApp-database
+    env_file:
+      - .env

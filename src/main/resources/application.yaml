@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: "SysCtrlApp"
+  security:
+    user:
+      password: Test12345_
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5440/SysCtrlApp?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
