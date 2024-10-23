@@ -26,10 +26,6 @@ Backend for SysCtrlApp web app
 3- then just run the program in your local repository with the command below
 ````
 
-#####  To clone the repository, just follow the command:
-```bash
-git clone https://tools.ages.pucrs.br/fluxo-ages/api.git
-```
 ##### The second step is by docker-compose:
 
 Start by uploading a container to docker:
