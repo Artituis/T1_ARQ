@@ -44,17 +44,12 @@ running the command:
 ```bash
 ./gradlew bootrun
 ```
-Or running the API via our any IDEA
-### the next steps will be ready when the program is complete
 
-####
-TBD
+#### After the command is executed, the application will be running on the port 8080.
+
+#### In the browser open the link bellow to acces the swagger interface:
 ```bash
-TBD
-```
-or
-```bash
-TBD
+http://localhost:8080/swagger-ui/index.html
 ```
 
 ### Additional Links

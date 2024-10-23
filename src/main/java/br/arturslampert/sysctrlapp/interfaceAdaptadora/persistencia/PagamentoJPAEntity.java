@@ -3,6 +3,7 @@ package br.arturslampert.sysctrlapp.interfaceAdaptadora.persistencia;
 import br.arturslampert.sysctrlapp.negocio.entidades.PagamentoEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -16,6 +17,7 @@ public class PagamentoJPAEntity {
 
     @Id
     @Column(name = "CODIGO", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
 
     @ManyToOne
@@ -31,6 +33,7 @@ public class PagamentoJPAEntity {
     @Column(name = "PROMOCAO")
     private String promocao;
 
+    @Transactional
     public PagamentoEntity toPagamentoEntity() {
         return PagamentoEntity.builder()
                 .codigo(codigo)

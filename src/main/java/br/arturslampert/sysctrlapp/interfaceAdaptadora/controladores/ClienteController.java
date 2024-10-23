@@ -38,10 +38,4 @@ public class ClienteController {
 //        clienteService.delete(id);
 //    }
 
-    // TODO: GET /servcad/asscli/:codcli
-    @GetMapping("/asscli/{codcli}")
-    public ClienteEntity getAssCli(@PathVariable Long codcli) {
-//        return clienteService.getAssCli(codcli);
-        return null;
-    }
 }

@@ -1,5 +1,6 @@
 package br.arturslampert.sysctrlapp.negocio.servicos;
 
+import br.arturslampert.sysctrlapp.negocio.entidades.AssinaturaEntity;
 import br.arturslampert.sysctrlapp.negocio.entidades.ClienteEntity;
 import br.arturslampert.sysctrlapp.negocio.persistencia.intefaces.ClienteRepositoryInterface;
 import br.arturslampert.sysctrlapp.negocio.servicos.interfaces.ClienteServiceInterface;

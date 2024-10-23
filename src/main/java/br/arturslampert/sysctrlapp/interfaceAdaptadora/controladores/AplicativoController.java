@@ -44,10 +44,4 @@ public class AplicativoController {
 //        aplicativoService.delete(id);
 //    }
 
-//    TODO: GET /servcad/assapp/:codapp
-    @GetMapping("/assapp/{codapp}")
-    public ResponseEntity<AplicativoEntity> getAssApp(@PathVariable Long codapp) {
-//        return ResponseEntity.ok(aplicativoService.getAssApp(codapp));
-        return ResponseEntity.ok(null);
-    }
 }

@@ -2,6 +2,7 @@ package br.arturslampert.sysctrlapp.negocio.servicos.interfaces;
 
 import br.arturslampert.sysctrlapp.interfaceAdaptadora.persistencia.AplicativoJPAEntity;
 import br.arturslampert.sysctrlapp.negocio.entidades.AplicativoEntity;
+import br.arturslampert.sysctrlapp.negocio.entidades.AssinaturaEntity;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface AplicativoServiceInterface {
 
     void delete(Long aplicativoEntity);
 
-    AplicativoEntity getAssApp(Long codapp);
+
 }

@@ -38,6 +38,6 @@ public class PagamentoService implements PagamentoServiceInterface {
 
     @Override
     public void delete(Long pagamentoEntity) {
-
+        pagamentoRepository.deleteById(pagamentoEntity);
     }
 }

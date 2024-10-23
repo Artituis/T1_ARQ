@@ -1,7 +1,9 @@
 package br.arturslampert.sysctrlapp.negocio.servicos;
 
 import br.arturslampert.sysctrlapp.aplicacao.dtos.AssinaturaDTO;
+import br.arturslampert.sysctrlapp.negocio.entidades.AplicativoEntity;
 import br.arturslampert.sysctrlapp.negocio.entidades.AssinaturaEntity;
+import br.arturslampert.sysctrlapp.negocio.entidades.ClienteEntity;
 import br.arturslampert.sysctrlapp.negocio.persistencia.intefaces.AssinaturaRepositoryInterface;
 import br.arturslampert.sysctrlapp.negocio.servicos.interfaces.AplicativoServiceInterface;
 import br.arturslampert.sysctrlapp.negocio.servicos.interfaces.AssinaturaServiceInterface;
@@ -9,6 +11,7 @@ import br.arturslampert.sysctrlapp.negocio.servicos.interfaces.ClienteServiceInt
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AssinaturaService implements AssinaturaServiceInterface {
 
     private final AssinaturaRepositoryInterface assinaturaRepository;
@@ -29,7 +33,7 @@ public class AssinaturaService implements AssinaturaServiceInterface {
 
     @Override
     public AssinaturaEntity getById(Long id) {
-        return assinaturaRepository.findById(id).orElse(null);
+        return assinaturaRepository.findById(id);
     }
 
     @Override
@@ -49,8 +53,29 @@ public class AssinaturaService implements AssinaturaServiceInterface {
     }
 
     @Override
+    public List<AssinaturaEntity> getByTipo(String tipo) {
+        return assinaturaRepository.findAll().stream().map(assinaturaEntity -> {
+            if (assinaturaEntity.getStatus().toString().equalsIgnoreCase(tipo)) {
+                return assinaturaEntity;
+            } else if (tipo.equalsIgnoreCase("TODAS")) {
+                return assinaturaEntity;
+            }
+            return null;
+        }).toList();
+    }
+    @Override
     public Boolean assinaturaValida(Long codass) {
-        Optional<AssinaturaEntity> assinaturaEntity = assinaturaRepository.findById(codass);
-        return assinaturaEntity.map(entity -> entity.getFimVigencia().after(new Date())).orElse(false);
+        AssinaturaEntity assinaturaEntity = assinaturaRepository.findById(codass);
+        return assinaturaEntity.getFimVigencia().after(new Date());
+    }
+
+    @Override
+    public List<AssinaturaEntity> getAssApp(Long codapp) {
+        return assinaturaRepository.findByAplicativo(aplicativoService.getById(codapp));
+    }
+
+    @Override
+    public List<AssinaturaEntity> getAssCli(Long codcli) {
+        return assinaturaRepository.findByCliente(clienteService.getById(codcli));
     }
 }

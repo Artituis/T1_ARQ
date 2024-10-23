@@ -1,11 +1,14 @@
 package br.arturslampert.sysctrlapp;
 
+import br.arturslampert.sysctrlapp.aplicacao.dtos.AssinaturaDTO;
 import br.arturslampert.sysctrlapp.interfaceAdaptadora.persistencia.AplicativoJPAEntity;
 import br.arturslampert.sysctrlapp.interfaceAdaptadora.persistencia.AssinaturaJPAEntity;
 import br.arturslampert.sysctrlapp.interfaceAdaptadora.persistencia.ClienteJPAEntity;
 import br.arturslampert.sysctrlapp.interfaceAdaptadora.persistencia.repositories.AplicativoJPARepository;
 import br.arturslampert.sysctrlapp.interfaceAdaptadora.persistencia.repositories.AssinaturaJPARepository;
 import br.arturslampert.sysctrlapp.interfaceAdaptadora.persistencia.repositories.ClienteJPARepository;
+import br.arturslampert.sysctrlapp.negocio.servicos.AssinaturaService;
+import br.arturslampert.sysctrlapp.negocio.servicos.interfaces.AssinaturaServiceInterface;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
@@ -13,6 +16,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 @Component
 @RequiredArgsConstructor
@@ -21,6 +25,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private final AplicativoJPARepository aplicativoJPARepository;
     private final ClienteJPARepository clienteJPARepository;
     private final AssinaturaJPARepository assinaturaJPARepository;
+    private final AssinaturaServiceInterface assinaturaService;
     boolean alreadySetup = false;
 
     @Override
@@ -35,6 +40,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     void setup() {
         createAplicativos();
         createClientes();
+        createAssinaturas();
     }
 
     void createAplicativos() {
@@ -168,17 +174,48 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     }
 
     void createAssinaturas() {
-        // TODO
-
-        AssinaturaJPAEntity assinaturaJPAEntity = AssinaturaJPAEntity.builder()
-                .codigo(1L)
-                .aplicativo(aplicativoJPARepository.findById(1L).get())
-                .cliente(clienteJPARepository.findById(1L).get())
-                .inicioVigencia(Date.valueOf("2021-01-01"))
-                .fimVigencia(null)
+        AssinaturaDTO assinaturaDTO = AssinaturaDTO.builder()
+                .codAplicativo(1L)
+                .codCliente(1L)
                 .build();
-        assinaturaJPARepository.save(assinaturaJPAEntity);
+        assinaturaService.create(assinaturaDTO);
 
+        assinaturaDTO = AssinaturaDTO.builder()
+                .codAplicativo(2L)
+                .codCliente(2L)
+                .build();
+        assinaturaService.create(assinaturaDTO);
 
+        assinaturaDTO = AssinaturaDTO.builder()
+                .codAplicativo(3L)
+                .codCliente(3L)
+                .build();
+        assinaturaService.create(assinaturaDTO);
+
+        assinaturaDTO = AssinaturaDTO.builder()
+                .codAplicativo(4L)
+                .codCliente(4L)
+                .build();
+        assinaturaService.create(assinaturaDTO);
+
+        AssinaturaJPAEntity assinaturaCancelada = AssinaturaJPAEntity.builder()
+                .aplicativo(aplicativoJPARepository.findById(5L).get())
+                .cliente(clienteJPARepository.findById(5L).get())
+                .inicioVigencia(getDateOneMonthBefore())
+                .fimVigencia(getDateThreeWeeksBefore())
+                .build();
+        assinaturaJPARepository.save(assinaturaCancelada);
+    }
+
+    private Date getDateOneMonthBefore() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        return new Date(calendar.getTimeInMillis());
+    }
+
+    private Date getDateThreeWeeksBefore() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.WEEK_OF_YEAR, -3);
+        return new Date(calendar.getTimeInMillis());
     }
 }

@@ -1,6 +1,8 @@
 package br.arturslampert.sysctrlapp.negocio.servicos;
 
+
 import br.arturslampert.sysctrlapp.negocio.entidades.AplicativoEntity;
+import br.arturslampert.sysctrlapp.negocio.entidades.AssinaturaEntity;
 import br.arturslampert.sysctrlapp.negocio.persistencia.intefaces.AplicativoRepositoryInterface;
 import br.arturslampert.sysctrlapp.negocio.servicos.interfaces.AplicativoServiceInterface;
 import org.springframework.stereotype.Service;
@@ -42,11 +44,5 @@ public class AplicativoService implements AplicativoServiceInterface {
     @Override
     public void delete(Long id) {
         aplicativoRepository.deleteById(id);
-    }
-
-    @Override
-    public AplicativoEntity getAssApp(Long codapp) {
-//        return aplicativoRepository.findByCodigo(codapp);
-        return null;
     }
 }
