@@ -26,8 +26,8 @@ public class PagamentoRepository implements PagamentoRepositoryInterface {
                 .map(PagamentoJPAEntity::toPagamentoEntity);
     }
 
-    public PagamentoEntity save(PagamentoEntity pagamentoEntity) {
-        return pagamentoJPARepository.save(PagamentoJPAEntity.fromPagamentoEntity(pagamentoEntity)).toPagamentoEntity();
+    public Long save(PagamentoEntity pagamentoEntity) {
+        return pagamentoJPARepository.save(PagamentoJPAEntity.fromPagamentoEntity(pagamentoEntity)).getCodigo();
     }
 
     public void deleteById(Long id) {

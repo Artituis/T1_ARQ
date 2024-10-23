@@ -47,6 +47,12 @@ public class AssinaturaService implements AssinaturaServiceInterface {
         return assinaturaRepository.save(assinaturaEntity).getCodigo();
     }
 
+    public AssinaturaEntity updateFimDaVigencia(Long id, Date date){
+        AssinaturaEntity assinaturaEntity = assinaturaRepository.findById(id);
+        assinaturaEntity.setFimVigencia(date);
+        return assinaturaRepository.save(assinaturaEntity);
+    }
+
     @Override
     public void delete(Long id) {
         assinaturaRepository.deleteById(id);

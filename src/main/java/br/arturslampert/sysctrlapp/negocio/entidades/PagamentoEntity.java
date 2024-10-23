@@ -1,11 +1,5 @@
 package br.arturslampert.sysctrlapp.negocio.entidades;
 
-import br.arturslampert.sysctrlapp.interfaceAdaptadora.persistencia.AssinaturaJPAEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
 import java.util.Date;
 
 public class PagamentoEntity {

@@ -10,7 +10,7 @@ public interface PagamentoRepositoryInterface {
 
     Optional<PagamentoEntity> findById(Long id);
 
-    PagamentoEntity save(PagamentoEntity pagamentoEntity);
+    Long save(PagamentoEntity pagamentoEntity);
 
     void deleteById(Long id);
 }
